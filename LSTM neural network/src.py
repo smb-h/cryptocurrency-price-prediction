@@ -14,13 +14,10 @@ def main():
     # split data
     train, test = train_test_split(hist, test_size=0.2)
 
-
     pd.plotting.register_matplotlib_converters()
 
     target_col = 'close'
     line_plot(train[target_col], test[target_col], 'training', 'test', title='')
-
-
 
     # initial data in neurons in LSTM layer
     np.random.seed(42)
@@ -33,7 +30,6 @@ def main():
     loss = 'mse'
     dropout = 0.2
     optimizer = 'adam'
-
 
     # train model
     train, test, X_train, X_test, y_train, y_test = prepare_data(
