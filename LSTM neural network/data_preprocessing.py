@@ -1,5 +1,6 @@
-from .normalizers import normalise_min_max, normalise_zero_base
-from .data_splitter import train_test_split
+import numpy as np
+from normalizers import normalise_min_max, normalise_zero_base
+from data_splitter import train_test_split
 
 
 
