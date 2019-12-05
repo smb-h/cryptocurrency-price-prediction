@@ -1,3 +1,8 @@
 # cryptocurrency-price-prediction
 
-using https://www.cryptocompare.com/
+
+Long Short-Term Memory algorithm
+using keras
+
+thanks to https://www.cryptocompare.com/ 
+
