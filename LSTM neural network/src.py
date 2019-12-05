@@ -1,13 +1,12 @@
 import json
 import requests
-from keras.models import Sequential
-from keras.layers import Activation, Dense, Dropout, LSTM
 import numpy as np
 import pandas as pd
-import seaborn as sns
 from sklearn.metrics import mean_absolute_error
 from .data_splitter import train_test_split
 from .plot import line_plot
+from .data_preprocessing import prepare_data
+from .lstm_neural_net import build_lstm_model
 
 
 endpoint = 'https://min-api.cryptocompare.com/data/histoday'
@@ -33,17 +32,6 @@ pd.plotting.register_matplotlib_converters()
 line_plot(train[target_col], test[target_col], 'training', 'test', title='')
 
 
-
-
-# buid neural network model
-def build_lstm_model(input_data, output_size, neurons=100, activ_func='linear', dropout=0.2, loss='mse', optimizer='adam'):
-    model = Sequential()
-    model.add(LSTM(neurons, input_shape=(input_data.shape[1], input_data.shape[2])))
-    model.add(Dropout(dropout))
-    model.add(Dense(units=output_size))
-    model.add(Activation(activ_func))
-    model.compile(loss=loss, optimizer=optimizer)
-    return model
 
 # initial data in neurons in LSTM layer
 np.random.seed(42)
