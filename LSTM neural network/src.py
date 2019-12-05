@@ -2,12 +2,13 @@ import json
 import requests
 from keras.models import Sequential
 from keras.layers import Activation, Dense, Dropout, LSTM
-import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import seaborn as sns
 from sklearn.metrics import mean_absolute_error
 from .data_splitter import train_test_split
+from .plot import line_plot
+from .normalizers import normalise_min_max, normalise_zero_base
 
 
 endpoint = 'https://min-api.cryptocompare.com/data/histoday'
@@ -24,32 +25,14 @@ target_col = 'close'
 
 # print(hist.head(5))
 
-
+# split data
 train, test = train_test_split(hist, test_size=0.2)
-
-# plt prices
-def line_plot(line1, line2, label1=None, label2=None, title='', lw=2):
-    fig, ax = plt.subplots(1, figsize=(13, 7))
-    ax.plot(line1, label=label1, linewidth=lw)
-    ax.plot(line2, label=label2, linewidth=lw)
-    ax.set_ylabel('price [CAD]', fontsize=14)
-    ax.set_title(title, fontsize=16)
-    ax.legend(loc='best', fontsize=16)
-    plt.show()
-    input('press return to continue')
 
 
 pd.plotting.register_matplotlib_converters()
 
 line_plot(train[target_col], test[target_col], 'training', 'test', title='')
 
-# normalize data
-def normalise_zero_base(df):
-    return df / df.iloc[0] - 1
-
-# normalize data
-def normalise_min_max(df):
-    return (df - df.min()) / (data.max() - df.min())
 
 # extract data of windows - size 5
 def extract_window_data(df, window_len=5, zero_base=True):
