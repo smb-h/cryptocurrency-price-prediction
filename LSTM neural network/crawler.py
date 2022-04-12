@@ -11,10 +11,7 @@ def get_top100():
     endpoint = "top/mktcapfull"
     res = requests.get(url + endpoint + '?tsym=USD&limit=100&api_key=' + api_key)
     df = pd.DataFrame(json.loads(res.content)['Data'])
-    names = []
-    for i in df.get("CoinInfo"):
-        names.append(i.get("Name"))
-    return names
+    return [i.get("Name") for i in df.get("CoinInfo")]
 
 
 def crawl():
